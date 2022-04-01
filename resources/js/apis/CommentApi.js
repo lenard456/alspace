@@ -14,3 +14,8 @@ export const createReply = async (commentId, content) => {
     await requestCookie()
     return await Http.post(`/comments/${commentId}`, {content})
 }
+
+export const fetchComment = async (commentId) => {
+    await requestCookie()
+    return await Http.get(`/comments/${commentId}`)
+}

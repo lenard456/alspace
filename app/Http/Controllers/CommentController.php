@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
 
+    public function view(Comment $comment)
+    {
+        $comment->load('comments');
+        return $comment;
+    }
+
     public function reply(Comment $comment, CommentRequest $request)
     {
         $reply = Auth::user()->comment($comment, $request->content);

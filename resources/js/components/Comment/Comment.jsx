@@ -7,10 +7,12 @@ import LikeButton from './components/LikeButton'
 import { useCommentLikersCount } from '@/js/recoil/selectors/useComment'
 import WriteComment from '../WriteComment'
 import { createReply } from '@/js/apis/CommentApi'
+import ReplyList from './components/ReplyList'
 
 export default function Comment({comment})
 {
     const [replyEditorEnabled, setReplyEditorEnabled] = useState(false)
+    const [showReplies, setShowReplies] = useState(false)
     const author = useUser(comment.user_id)
     const likersCount = useCommentLikersCount(comment.id)
 
@@ -26,7 +28,7 @@ export default function Comment({comment})
             actions={[
                 <LikeButton id={comment.id} key='like' />,
                 <span onClick={() => setReplyEditorEnabled(x => !x)} key='reply'>Reply</span>,
-                <span key='view-replies'>View Replies</span>,
+                <span onClick={() => setShowReplies(x => !x)} key='view-replies'>{ showReplies ? 'Hide Replies' : 'View Replies' }</span>,
                 likersCount > 0 && <span>
                     <LikeFilled /> {likersCount}
                 </span>
@@ -42,6 +44,7 @@ export default function Comment({comment})
                 </Tooltip>
             }
         >
+            { showReplies && <ReplyList id={comment.id} />}
             { replyEditorEnabled && <WriteComment placeholder='Write a reply' submitHandler={submitReply} callback={replyCallback} /> }
         </AntComment>
     )

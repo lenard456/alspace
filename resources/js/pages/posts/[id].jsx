@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Avatar, Input, Button, List, Skeleton } from 'antd'
-import { LikeOutlined, SendOutlined, UserOutlined } from '@ant-design/icons'
+import { useEffect } from 'react'
+import { List, Skeleton } from 'antd'
 import Post from '@/js/components/Post/Post'
 import PostComment from '@/js/components/Comment/Comment'
 import { useParams } from 'react-router-dom'
@@ -11,7 +10,6 @@ import usePostsActions from '@/js/recoil/actions/usePostsActions'
 import WriteComment from '@/js/components/WriteComment'
 import { arrayIsLoading } from '@/js/utils'
 import usePostComments from '@/js/recoil/selectors/usePostComments'
-import moment from 'moment'
 import usePostsCommentIdsAction from '@/js/recoil/actions/usePostsCommentIdsActions'
 
 export default function ViewPostPage() {

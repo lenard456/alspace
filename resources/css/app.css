@@ -22,6 +22,10 @@ a:hover {
     background-color: inherit;
 }
 
+.ant-comment-inner {
+    padding: 8px 0;
+}
+
 .thin-scrollbar {
     scrollbar-color: rgb(179, 179, 179) #f1f1f1; /* thumb and track color */
     scrollbar-width: thin;

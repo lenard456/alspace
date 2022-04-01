@@ -6,9 +6,9 @@ import currentUserSelector from '@/js/recoil/selectors/currentUserSelector';
 import useApi from '@/js/hooks/useApi';
 
 
-export default function WriteComment({ submitHandler, callback }) {
+export default function WriteComment({ submitHandler, callback, placeholder }) {
 
-    const { isLoading, data, execute, status, message } = useApi(submitHandler)
+    const { isLoading, data, execute, status, message, setStatus } = useApi(submitHandler)
     const { avatarUrl } = useRecoilValue(currentUserSelector)
     const [comment, setComment] = useState('')
 
@@ -17,6 +17,7 @@ export default function WriteComment({ submitHandler, callback }) {
             setComment('')
             message.success('Commented successfully')
             callback(data)
+            setStatus('idle')
         }
     }, [status])
     
@@ -35,7 +36,7 @@ export default function WriteComment({ submitHandler, callback }) {
                         value={comment}
                         onChange={e => setComment(e.target.value)}
                         onPressEnter={submitComment}
-                        placeholder='Write a comment'
+                        placeholder={placeholder}
                         suffix={
                             comment.trim().length > 0
                                 ? <Button onClick={submitComment} loading={isLoading} type='text' size='small' icon={<SendOutlined className='cursor-pointer text-blue-500' />} />
@@ -45,4 +46,8 @@ export default function WriteComment({ submitHandler, callback }) {
             }
         />
     )
+}
+
+WriteComment.defaultProps = {
+    placeholder: 'Write a comment'
 }
